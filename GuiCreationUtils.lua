@@ -151,6 +151,7 @@ function util.New(Inst:UIElements, Properties: {}?, Parent: Instance) -- Remembe
 	elseif not TopParent:FindFirstChild("CustomScreenGui") then
 		local NewPar = Instance.new("ScreenGui", TopParent)
 		NewPar.Name = "CustomScreenGui"
+		self.Instance.Parent = NewPar
 		table.insert(scriptObjects, NewPar)
 	end
 
