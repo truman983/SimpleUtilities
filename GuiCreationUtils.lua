@@ -137,7 +137,7 @@ end
 
 
 -- Constructs a new instance to be used with custom methods.
-function util.New(Inst:UIElements, Parent: Instance, Properties: {}?) -- Remember, use SELF.INSTANCE to reference the actual object
+function util.New(Inst:UIElements, Properties: {}?, Parent: Instance) -- Remember, use SELF.INSTANCE to reference the actual object
 	local self = setmetatable({}, util)
 
 	local Success, result = pcall(Instance.new, Inst)
