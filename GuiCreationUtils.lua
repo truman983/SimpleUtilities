@@ -185,7 +185,7 @@ function util.MouseUnlock(Toggle: boolean)
 		New2.TextTransparency = 1
 		New2.ZIndex = -math.huge
 		New2.LayoutOrder = -math.huge
-		New2.Size = UDim2.fromScale(1,1)
+		New2.Size = UDim2.fromScale(0.01,0.01)
 		New2.Modal = true
 		ScrGuiRef = New
 	else
