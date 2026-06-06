@@ -2,6 +2,7 @@ local util = {}
 util.__index = util
 
 local Ts = game:GetService("TweenService")
+local Uis = game:GetService("UserInputService")
 
 local References = {}
 local Callbacks = {}
@@ -147,6 +148,8 @@ function util.New(Inst:UIElements, Parent: Instance, Properties: {}?) -- Remembe
 	return self
 end
 
+
+-- Creates a new clone of the object and parents it to itself.
 function util.Clone(Inst: Instance)
 
 	local clone = setmetatable({}, util)
@@ -159,6 +162,14 @@ function util.Clone(Inst: Instance)
 	return clone
 
 
+end
+
+function util.MouseLocked(Toggle: boolean)
+	if Toggle then
+		Uis.MouseBehavior = Enum.MouseBehavior.Default
+	else
+		Uis.MouseBehavior = Enum.MouseBehavior.LockCenter
+	end
 end
 
 -- Smoothly tweens the property of an object
@@ -282,3 +293,6 @@ end
 
 
 return util
+
+
+
