@@ -183,6 +183,8 @@ function util.MouseUnlock(Toggle: boolean)
 		local New2 = Instance.new("TextButton", New)
 		New2.BackgroundTransparency = 1
 		New2.TextTransparency = 1
+		New2.ZIndex = -math.huge
+		New2.LayoutOrder = -math.huge
 		New2.Size = UDim2.fromScale(1,1)
 		New2.Modal = true
 		ScrGuiRef = New
@@ -298,20 +300,32 @@ end
 -- Shuts down everything.
 function util.Kill()
 
-	for _,ref in pairs(References) do
-		if ref.Instance then
-			ref.Instance:Destroy()
-			ref.Instance = nil
+	local function IsEmpty(table: {})
+	return next(table) == nil
+	end
+
+	if not IsEmpty(References) then
+		for _,ref in pairs(References) do
+			if ref.Instance then
+				ref.Instance:Destroy()
+				ref.Instance = nil
+			end
 		end
 	end
 
-	for _, callback:RBXScriptConnection in pairs(Callbacks) do
-		callback:Disconnect()
+	if not IsEmpty(Callbacks) then
+		for _, callback:RBXScriptConnection in pairs(Callbacks) do
+			callback:Disconnect()
+		end
 	end
+	
 
-	for _,obj in pairs(scriptObjects) do
-		obj:Destroy()
+	if not IsEmpty(scriptObjects) then
+		for _,obj in pairs(scriptObjects) do
+			obj:Destroy()
+		end
 	end
+	
 
 	table.clear(References)
 
