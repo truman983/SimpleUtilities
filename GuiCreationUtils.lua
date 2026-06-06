@@ -294,7 +294,3 @@ end
 
 
 return util
-
-
-
-util.MouseLocked()
