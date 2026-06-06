@@ -3,9 +3,11 @@ util.__index = util
 
 local Ts = game:GetService("TweenService")
 local Uis = game:GetService("UserInputService")
+local ScrGuiRef
 
 local References = {}
 local Callbacks = {}
+local scriptObjects = {}
 
 local defaultSize = UDim2.fromScale(0.2,0.2)
 local defaultPosition = UDim2.fromScale(0.5, 0)
@@ -164,12 +166,31 @@ function util.Clone(Inst: Instance)
 
 end
 
-function util.MouseLocked(Toggle: boolean)
-	if not Toggle then
-		Uis.MouseBehavior = Enum.MouseBehavior.Default
+function util.MouseUnlock(Toggle: boolean)
+	local parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	if Toggle then
+		if ScrGuiRef then
+			return
+		end
+
+		local ok, ui = pcall(gethui)
+		if ok then 
+			parent = ui
+		end
+
+		local New = Instance.new("ScreenGui", parent)
+		New.IgnoreGuiInset = true
+		local New2 = Instance.new("TextButton", New)
+		New2.BackgroundTransparency = 1
+		New2.TextTransparency = 1
+		New2.Size = UDim2.fromScale(1,1)
+		New2.Modal = true
+		ScrGuiRef = New
 	else
-		Uis.MouseBehavior = Enum.MouseBehavior.LockCenter
-	
+		if ScrGuiRef then
+			ScrGuiRef:Destroy()
+			ScrGuiRef = nil
+		end
 	end
 end
 
@@ -286,6 +307,10 @@ function util.Kill()
 
 	for _, callback:RBXScriptConnection in pairs(Callbacks) do
 		callback:Disconnect()
+	end
+
+	for _,obj in pairs(ScriptObjects) do
+		obj:Destroy()
 	end
 
 	table.clear(References)
