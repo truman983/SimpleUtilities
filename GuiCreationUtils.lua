@@ -4,6 +4,13 @@ util.__index = util
 local Ts = game:GetService("TweenService")
 local Uis = game:GetService("UserInputService")
 local ScrGuiRef
+local TopParent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+local ok, ui = pcall(gethui)
+	if ok then 
+		TopParent = ui
+	end
+
+
 
 local References = {}
 local Callbacks = {}
@@ -141,6 +148,10 @@ function util.New(Inst:UIElements, Parent: Instance, Properties: {}?) -- Remembe
 
 	if Parent then
 		self.Instance.Parent = Parent
+	elseif not TopParent:FindFirstChild("CustomScreenGui") then
+		local NewPar = Instance.new("ScreenGui", TopParent)
+		NewPar.Name = "CustomScreenGui"
+		table.insert(scriptObjects, NewPar)
 	end
 
 	ApplyProperties(Properties, self.Instance)
@@ -167,18 +178,12 @@ function util.Clone(Inst: Instance)
 end
 
 function util.MouseUnlock(Toggle: boolean)
-	local parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 	if Toggle then
 		if ScrGuiRef then
 			return
 		end
-
-		local ok, ui = pcall(gethui)
-		if ok then 
-			parent = ui
-		end
-
-		local New = Instance.new("ScreenGui", parent)
+		Uis.MouseIconEnabled = true
+		local New = Instance.new("ScreenGui",TopParent)
 		New.IgnoreGuiInset = true
 		local New2 = Instance.new("TextButton", New)
 		New2.BackgroundTransparency = 1
@@ -189,6 +194,7 @@ function util.MouseUnlock(Toggle: boolean)
 		New2.Modal = true
 		ScrGuiRef = New
 	else
+		Uis.MouseIconEnabled = false
 		if ScrGuiRef then
 			ScrGuiRef:Destroy()
 			ScrGuiRef = nil
@@ -333,3 +339,5 @@ end
 
 
 return util
+
+local hi = util.New("ScreenGui")
