@@ -339,5 +339,3 @@ end
 
 
 return util
-
-local hi = util.New("ScreenGui")
