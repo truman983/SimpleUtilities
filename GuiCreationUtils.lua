@@ -309,7 +309,7 @@ function util.Kill()
 		callback:Disconnect()
 	end
 
-	for _,obj in pairs(ScriptObjects) do
+	for _,obj in pairs(scriptObjects) do
 		obj:Destroy()
 	end
 
