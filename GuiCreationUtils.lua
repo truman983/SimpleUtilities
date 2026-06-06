@@ -165,10 +165,11 @@ function util.Clone(Inst: Instance)
 end
 
 function util.MouseLocked(Toggle: boolean)
-	if Toggle then
+	if not Toggle then
 		Uis.MouseBehavior = Enum.MouseBehavior.Default
 	else
 		Uis.MouseBehavior = Enum.MouseBehavior.LockCenter
+	
 	end
 end
 
@@ -296,3 +297,4 @@ return util
 
 
 
+util.MouseLocked()
