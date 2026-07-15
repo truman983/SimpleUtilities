@@ -7,10 +7,10 @@ local StarterGui = game:GetService("StarterGui")
 local charEvents: Folder = repStorage:WaitForChild("CharacterEvents")
 local PlrEvents: Folder = repStorage:WaitForChild("PlayerEvents")
 local grabEvents = game:GetService("ReplicatedStorage"):WaitForChild("GrabEvents", 1)
-
+local menuToys: RemoteEvent = repStorage:WaitForChild("MenuToys", 1)
 
 local deleteToyRemote: RemoteEvent = menuToys:WaitForChild("DestroyToy", 1)
-local menuToys: RemoteEvent = repStorage:WaitForChild("MenuToys", 1)
+
 local ragdollRem: RemoteEvent = charEvents:FindFirstChild("RagdollRemote")
 local struggleRem: RemoteEvent = charEvents:FindFirstChild("Struggle")
 
