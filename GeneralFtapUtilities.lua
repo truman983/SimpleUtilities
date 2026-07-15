@@ -96,6 +96,8 @@ function Utils.OwnMouseTarget()
 	        netOwnTarget(targ)
 	        task.wait()
 	        dropTarget(targ)
+
+			return targ
 	    end
 	end
 end
