@@ -91,13 +91,13 @@ end
 function Utils.OwnMouseTarget()
 
     local targ = LpMouse.Target
-
-    if ValidGrabbable(targ) then
-        netOwnTarget(targ)
-        task.wait()
-        dropTarget(targ)
-    end
-
+	if targ then
+	    if ValidGrabbable(targ) then
+	        netOwnTarget(targ)
+	        task.wait()
+	        dropTarget(targ)
+	    end
+	end
 end
 
 function Utils.WhenLpGrabbing(func: (otherPart: BasePart) -> ())
