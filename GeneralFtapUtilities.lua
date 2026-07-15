@@ -7,14 +7,16 @@ local StarterGui = game:GetService("StarterGui")
 local charEvents: Folder = repStorage:WaitForChild("CharacterEvents")
 local PlrEvents: Folder = repStorage:WaitForChild("PlayerEvents")
 local grabEvents = game:GetService("ReplicatedStorage"):WaitForChild("GrabEvents", 1)
+
 local menuToys: RemoteEvent = repStorage:WaitForChild("MenuToys", 1)
 
 local deleteToyRemote: RemoteEvent = menuToys:WaitForChild("DestroyToy", 1)
+local spawnToyEvent: RemoteFunction = menuToys:WaitForChild("SpawnToyRemoteFunction", 1)
 
 local ragdollRem: RemoteEvent = charEvents:FindFirstChild("RagdollRemote")
 local struggleRem: RemoteEvent = charEvents:FindFirstChild("Struggle")
 
-local spawnToyEvent: RemoteFunction = menuToys:WaitForChild("SpawnToyRemoteFunction", 1)
+
 
 local lp = plrServ.LocalPlayer
 local LpMouse = lp:GetMouse()
@@ -81,6 +83,18 @@ function Utils.OwnPart(Part)
         netOwnTarget(Part)
         task.wait()
         dropTarget(Part)
+    end
+
+end
+
+function Utils.OwnMouseTarget()
+
+    local targ = LpMouse.Target
+
+    if ValidGrabbable(targ) then
+        netOwnTarget(targ)
+        task.wait()
+        dropTarget(targ)
     end
 
 end
