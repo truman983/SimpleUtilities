@@ -61,7 +61,7 @@ local function ValidGrabbable(obj, doDistCheck: boolean)
     if table.find(allowedCollisionGroups, obj.CollisionGroup) and obj.Anchored == false  then
        
         if doDistCheck then
-           return (obj.Position - lp.Character.Head.Position).Magnitude < 15
+           return (obj.Position - lp.Character.Head.Position).Magnitude < 30
         end
 
         return true
