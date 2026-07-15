@@ -50,9 +50,20 @@ local allowedCollisionGroups = {
 
  }
 
-local function ValidGrabbable(obj)
+local function ValidGrabbable(obj, doDistCheck: boolean)
 
-    if table.find(allowedCollisionGroups, obj.CollisionGroup) and obj.Anchored == false and (obj.Position - lp.Character.Head.Position).Magnitude < 15 then
+    local allowedCollisionGroups = {
+    "Items",
+    "Default",
+	"Players"
+}
+
+    if table.find(allowedCollisionGroups, obj.CollisionGroup) and obj.Anchored == false  then
+       
+        if doDistCheck then
+           return (obj.Position - lp.Character.Head.Position).Magnitude < 15
+        end
+
         return true
     else
         return false
@@ -92,7 +103,7 @@ function Utils.OwnMouseTarget()
 
     local targ = LpMouse.Target
 	if targ then
-	    if ValidGrabbable(targ) then
+	    if ValidGrabbable(targ, true) then
 	        netOwnTarget(targ)
 	        task.wait()
 	        dropTarget(targ)
