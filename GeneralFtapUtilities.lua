@@ -52,7 +52,7 @@ local allowedCollisionGroups = {
 
 local function ValidGrabbable(obj)
 
-    if table.find(allowedCollisionGroups, obj.CollisionGroup) and obj.Anchored == false then
+    if table.find(allowedCollisionGroups, obj.CollisionGroup) and obj.Anchored == false and (obj.Position - lp.Character.Head.Position).Magnitude < 15 then
         return true
     else
         return false
