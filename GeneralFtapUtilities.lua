@@ -27,13 +27,6 @@ local threads = {}
 
 local AgEnabled = false
 
-local allowedCollisionGroups = {
-    "Items",
-    "Default",
-	"Players",
-	"PlotItems"
-}
-
  local ServerMessages = {
         Message = function(Msg: string)
             game:GetService("TextChatService").TextChannels.RBXGeneral:DisplaySystemMessage(prefix..Msg)
@@ -56,7 +49,8 @@ local function ValidGrabbable(obj, doDistCheck: boolean)
     local allowedCollisionGroups = {
     "Items",
     "Default",
-	"Players"
+	"Players",
+	"PlotItems"
 }
 
     if table.find(allowedCollisionGroups, obj.CollisionGroup) and obj.Anchored == false  then
