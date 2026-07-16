@@ -30,7 +30,8 @@ local AgEnabled = false
 local allowedCollisionGroups = {
     "Items",
     "Default",
-	"Players"
+	"Players",
+	"PlotItems"
 }
 
  local ServerMessages = {
