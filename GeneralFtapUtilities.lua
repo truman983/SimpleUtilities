@@ -51,7 +51,7 @@ local AgEnabled = false
  function PartInRange(OtherPart: BasePart, Range: number)
     local mag = (OtherPart.Position - lp.Character.Head.Position).Magnitude
 
-    return (mag <= Range), mag
+    return (mag <= Range)
 
  end
 
@@ -104,10 +104,7 @@ local function ValidGrabbable(obj)
     "PlotItems"
 }
 
-    local check, mag = PartInRange(obj, 19)
-    print(check, mag)
-
-    if table.find(allowedCollisionGroups, obj.CollisionGroup) and obj.Anchored == false and check then
+    if table.find(allowedCollisionGroups, obj.CollisionGroup) and obj.Anchored == false and PartInRange(obj, 19) then
         return true
     else
         return false
