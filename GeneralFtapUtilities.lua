@@ -198,14 +198,19 @@ function Utils.AntiGrab(Enabled: boolean)
 end
 
 function Utils.SpawnToy(ToyName: string, Position: Vector3, Orientation: Vector3?)
-    local orient = Orientation or Vector3.zero
+
     local correction = CFrame.Angles(math.pi/2, 0, 0)
     local origin = CFrame.new(Position)
 
     local location = origin * correction
 
     task.spawn(function()
-        spawnToyEvent:InvokeServer(ToyName, location, Orientation)
+        if Orientation then
+            spawnToyEvent:InvokeServer(ToyName, location, Orientation)
+        else
+            spawnToyEvent:InvokeServer(ToyName, location, Vector3.zero)
+        end
+        
     end)
 end
 
