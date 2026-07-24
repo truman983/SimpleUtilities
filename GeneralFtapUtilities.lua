@@ -147,6 +147,7 @@ end
 function Utils.OwnMouseTarget()
 
     local targ = MouseRaycast()
+	print(targ)
 	if targ then
 	    if ValidGrabbable(targ) then
 	        netOwnTarget(targ)
