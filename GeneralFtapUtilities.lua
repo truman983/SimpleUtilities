@@ -88,7 +88,10 @@ local function ValidGrabbable(obj)
     "PlotItems"
 }
 
-    if table.find(allowedCollisionGroups, obj.CollisionGroup) and obj.Anchored == false and PartInRange(obj, 19) then
+    local check = PartInRange(obj, 19)
+    print(check)
+
+    if table.find(allowedCollisionGroups, obj.CollisionGroup) and obj.Anchored == false and check then
         return true
     else
         return false
