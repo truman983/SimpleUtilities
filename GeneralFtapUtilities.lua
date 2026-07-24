@@ -84,7 +84,8 @@ local function ValidGrabbable(obj)
     local allowedCollisionGroups = {
     "Items",
     "Default",
-	"Players"
+	"Players",
+    "PlotItems"
 }
 
     if table.find(allowedCollisionGroups, obj.CollisionGroup) and obj.Anchored == false and PartInRange(obj, 19) then
@@ -122,9 +123,6 @@ function Utils.OwnModel(Model: Model)
         dropTarget(closestPart)
         return Model
     end
-
-    
-
 end
 
 function Utils.OwnMouseTarget()
@@ -241,3 +239,4 @@ function Utils.OnLPToySpawn(func: (spawnedToy: Model) -> ())
 end
 
 return Utils
+
