@@ -203,7 +203,7 @@ function Utils.SpawnToy(ToyName: string, Distance: number, Orientation: Vector3?
     local multiplier = Distance or 5
 
     local correction = CFrame.Angles(math.pi/2, 0, 0)
-    local origin = CFrame.new((root.Position + (lv * multiplier)) - Vector3.new(0,20))
+    local origin = CFrame.new((root.Position + (lv * multiplier)) - Vector3.new(0,10))
 
     local location = origin * correction
 
