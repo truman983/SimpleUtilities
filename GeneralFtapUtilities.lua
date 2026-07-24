@@ -304,13 +304,17 @@ function Utils.ChatConsole(Info, MessageType)
     end
 end
 
+function Utils.DoBlobSpawn()
+        Utils.SpawnToy("CreatureBlobman", 5)
+        task.wait()
+        return GetValidBlobAndSeat()
+end
+
 function Utils.BlobEscape()
     local lpHum = lp.Character:FindFirstChildOfClass("Humanoid")
     local ogPos = lp.Character.HumanoidRootPart.Position
 
-    Utils.SpawnToy("CreatureBlobman", 5)
-    task.wait()
-    local blob, seat = GetValidBlobAndSeat()
+    local blob, seat = Utils.DoBlobSpawn()
     struggleRem:FireServer()
     task.wait()
     lp.Character:MoveTo(seat.Position)
@@ -320,8 +324,9 @@ function Utils.BlobEscape()
     Utils.DeleteToy(blob)
     task.wait()
     ragdollRem:FireServer(lp.Character.HumanoidRootPart, 0)
-
-
+    task.wait()
+    lp.Character:MoveTo(ogPos)
+    
 end
 
 return Utils
