@@ -120,7 +120,10 @@ function Utils.OwnModel(Model: Model)
         netOwnTarget(closestPart)
         task.wait()
         dropTarget(closestPart)
+        return Model
     end
+
+    
 
 end
 
@@ -132,6 +135,7 @@ function Utils.OwnMouseTarget()
 	        netOwnTarget(targ)
 	        task.wait()
 	        dropTarget(targ)
+            return targ
 	    end
 	end
 end
@@ -237,4 +241,3 @@ function Utils.OnLPToySpawn(func: (spawnedToy: Model) -> ())
 end
 
 return Utils
-
