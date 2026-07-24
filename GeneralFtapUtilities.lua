@@ -129,9 +129,13 @@ end
 function GetValidBlobAndSeat()
     local check = menuToys:FindFirstChild("CreatureBlobman")
     if check then
+        print("found blob")
         local SeatCheck: VehicleSeat = check:FindFirstChildOfClass("VehicleSeat")
         if SeatCheck then
+            print('found seat')
             return check, SeatCheck
+        else
+            print('no seat ')
         end
     end
 end
@@ -312,7 +316,7 @@ function Utils.BlobEscape()
         repeat task.wait()
         until seat
     end
-    
+
     lp.Character:MoveTo(seat.Position)
     task.wait()
     seat:Sit(lp.Character:FindFirstChild("Humanoid"))
