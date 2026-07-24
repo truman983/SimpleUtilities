@@ -240,7 +240,7 @@ function Utils.DeleteToy(ToyName: string)
     deleteToyRemote:FireServer(Deleting)
 end
 
-function Utils.OnLPToySpawn(func: (spawnedToy: Model) -> ())
+function Utils.WhenLpToySpawn(func: (spawnedToy: Model) -> ())
     local returnConn
     
     returnConn = ToyFolder.ChildAdded:Connect(function(child: Instance)
