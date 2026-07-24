@@ -48,6 +48,12 @@ local AgEnabled = false
 
  }
 
+ function PartInRange(OtherPart: BasePart, Range: number)
+
+    return (OtherPart.Position - lp.Character.Head.Position).Magnitude <= Range
+
+ end
+
  
 function GetClosestPartOfModel(Model: Model)
     local Closest = {
@@ -81,7 +87,7 @@ local function ValidGrabbable(obj)
 	"Players"
 }
 
-    if table.find(allowedCollisionGroups, obj.CollisionGroup) and obj.Anchored == false then
+    if table.find(allowedCollisionGroups, obj.CollisionGroup) and obj.Anchored == false and PartInRange(obj, 19) then
         return true
     else
         return false
@@ -202,7 +208,7 @@ function Utils.DeleteToy(ToyName: string)
     deleteToyRemote:FireServer(ToyName)
 end
 
-function Utils.OnToySpawn(func: (spawnedToy: Model) -> ())
+function Utils.OnLPToySpawn(func: (spawnedToy: Model) -> ())
     local returnConn
     
     returnConn = ToyFolder.ChildAdded:Connect(function(child: Instance)
@@ -217,3 +223,4 @@ function Utils.OnToySpawn(func: (spawnedToy: Model) -> ())
 end
 
 return Utils
+
