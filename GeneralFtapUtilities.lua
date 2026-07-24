@@ -279,7 +279,7 @@ function Utils.Aura(func: (ModelInRange: Model) -> ())
 end
 
 function Utils.ChatConsole(Info, MessageType)
-    if table.find(ServerMessages, MessageType) then
+    if ServerMessages[MessageType] then
         ServerMessages[MessageType](Info)
     end
 end
