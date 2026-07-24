@@ -1,5 +1,5 @@
 local Utils = {}
-local chatConsolePrefix =  local prefix = '<font color="#11edb2">[Server]: </font>'
+local chatConsolePrefix = '<font color="#11edb2">[Server]: </font>'
 
 local repStorage = game:GetService("ReplicatedStorage")
 local plrServ = game:GetService("Players")
