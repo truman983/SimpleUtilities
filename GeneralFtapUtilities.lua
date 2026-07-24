@@ -133,7 +133,6 @@ function GetValidBlobAndSeat()
 
         local SeatCheck: VehicleSeat = check:WaitForChild("VehicleSeat", 5)
         if SeatCheck then
-            print('found seat')
             return check, SeatCheck
         end
 
@@ -326,7 +325,7 @@ function Utils.BlobEscape()
     ragdollRem:FireServer(lp.Character.HumanoidRootPart, 0)
     task.wait()
     lp.Character:MoveTo(ogPos)
-    
+
 end
 
 return Utils
