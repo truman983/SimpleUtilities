@@ -199,10 +199,13 @@ end
 
 function Utils.SpawnToy(ToyName: string, Position: Vector3, Orientation: Vector3?)
     local orient = Orientation or Vector3.zero
-    local offset = CFrame.Angles(math.pi/2, 0, 0)
+    local correction = CFrame.Angles(math.pi/2, 0, 0)
+    local origin = CFrame.new(Position)
+
+    local location = origin * correction
 
     task.spawn(function()
-        spawnToyEvent:InvokeServer(ToyName, (CFrame.new(Position) * offset), Orientation)
+        spawnToyEvent:InvokeServer(ToyName, location, Orientation)
     end)
 end
 
