@@ -307,21 +307,22 @@ end
 
 function Utils.BlobEscape()
 
+    local ogPos = lp.Character.HumanoidRootPart.Position
+
     Utils.SpawnToy("CreatureBlobman", 5)
-    task.wait()
+    task.wait(0.05)
     local blob, seat = GetValidBlobAndSeat()
     struggleRem:FireServer()
-
-    if not seat then
-        repeat task.wait()
-        until seat
-    end
-
+    task.wait()
+    ragdollRem:FireServer(lp.Character.HumanoidRootPart, 0)
+    task.wait()
     lp.Character:MoveTo(seat.Position)
     task.wait()
     seat:Sit(lp.Character:FindFirstChild("Humanoid"))
     task.wait()
     Utils.DeleteToy(blob)
+    task.wait()
+    lp.Character:MoveTo(ogPos)
 
 end
 
