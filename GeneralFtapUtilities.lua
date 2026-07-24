@@ -209,6 +209,7 @@ function Utils.SpawnToy(ToyName: string, Position: Vector3, Orientation: Vector3
 				print('you had orientation')
             spawnToyEvent:InvokeServer(ToyName, location, Orientation)
         else
+				print('you had no orientation')
             spawnToyEvent:InvokeServer(ToyName, location, Vector3.zero)
         end
         
