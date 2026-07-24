@@ -232,11 +232,6 @@ return ReturnConn
     
 end
 
-
-function Utils.AntiGrab(Enabled: boolean)
-
-end
-
 function Utils.SpawnToy(ToyName: string, Distance: number, Orientation: Vector3?)
     local root = lp.Character.HumanoidRootPart
     local lv = root.CFrame.LookVector
@@ -286,6 +281,7 @@ function Utils.WhenLpToySpawn(func: (spawnedToy: Model) -> ())
 end
 
 function Utils.Aura(func: (ModelInRange: Model) -> ()) 
+
     local params = OverlapParams.new()
     params.FilterType = Enum.RaycastFilterType.Exclude
     params.FilterDescendantsInstances = {lp.Character}
@@ -338,6 +334,64 @@ function Utils.BlobEscape()
     task.wait()
     lp.Character:MoveTo(ogPos)
 
+end
+
+function Utils.SimpleAntiGrabSetup() -- Inspired by RebornSpy's take on the simple anti grab.
+    local antiEnabled = false
+    local thread
+    
+    return {
+
+        Enable = function()
+                if antiEnabled then
+                    return
+                end
+
+                antiEnabled = true
+                
+                thread = task.spawn(function()
+                    while antiEnabled  do
+                        task.wait()
+                    local holdingBool = lp:FindFirstChild("IsHeld")
+                    local char = lp.Character
+                    if holdingBool and holdingBool.Value == true then
+                        if char then
+                            local root = char:FindFirstChild("HumanoidRootPart")
+                            local Humanoid: Humanoid = char:FindFirstChild("Humanoid")
+                            if root and Humanoid then
+                                local ogPos = root.Position
+                                Humanoid:ChangeState(Enum.HumanoidStateType.Ragdoll)
+                                while holdingBool.Value == true and antiEnabled do
+                                    struggleRem:FireServer(lp)
+                                    ragdollRem:FireServer(root, 0)
+                                    task.wait()
+                                    Humanoid:ChangeState(Enum.HumanoidStateType.Running)
+                                    task.wait(0.001)
+                                end
+                                if (ogPos - root.Position).Magnitude >= 20 then
+                                    root.CFrame = CFrame.new(ogPos)
+                                    RemoveVelocities(lp.Character)
+                                end
+                            end
+
+                        end
+                    end
+                end
+            end)
+
+        end;
+
+
+        Disable = function()
+            antiEnabled = false
+            if thread then
+                task.cancel(thread)
+                thread = nil
+            end
+        end
+    }
+
+  
 end
 
 return Utils
