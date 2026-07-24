@@ -205,7 +205,8 @@ function Utils.SpawnToy(ToyName: string, Position: Vector3, Orientation: CFrame?
 end
 
 function Utils.DeleteToy(ToyName: string)
-    deleteToyRemote:FireServer(ToyName)
+    local Deleting = ToyFolder:FindFirstChild(ToyName)
+    deleteToyRemote:FireServer(Deleting)
 end
 
 function Utils.OnLPToySpawn(func: (spawnedToy: Model) -> ())
