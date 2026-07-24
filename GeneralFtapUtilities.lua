@@ -49,8 +49,10 @@ local AgEnabled = false
  }
 
  function PartInRange(OtherPart: BasePart, Range: number)
+    local mag = (OtherPart.Position - lp.Character.Head.Position).Magnitude
+    print(mag)
 
-    return (OtherPart.Position - lp.Character.Head.Position).Magnitude <= Range
+    return mag <= Range
 
  end
 
