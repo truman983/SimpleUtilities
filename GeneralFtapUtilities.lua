@@ -206,6 +206,7 @@ function Utils.SpawnToy(ToyName: string, Position: Vector3, Orientation: Vector3
 
     task.spawn(function()
         if Orientation then
+				print('you had orientation')
             spawnToyEvent:InvokeServer(ToyName, location, Orientation)
         else
             spawnToyEvent:InvokeServer(ToyName, location, Vector3.zero)
