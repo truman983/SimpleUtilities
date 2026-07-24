@@ -307,11 +307,18 @@ function Utils.BlobEscape()
     task.wait()
     local blob, seat = GetValidBlobAndSeat()
     struggleRem:FireServer()
+
+    if not seat then
+        repeat task.wait()
+        until seat
+    end
+    
+    lp.Character:MoveTo(seat.Position)
     task.wait()
     seat:Sit(lp.Character:FindFirstChild("Humanoid"))
     task.wait()
     Utils.DeleteToy(blob)
-    
+
 end
 
 return Utils
