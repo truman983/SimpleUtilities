@@ -1,4 +1,5 @@
 local Utils = {}
+local chatConsolePrefix =  local prefix = '<font color="#11edb2">[Server]: </font>'
 
 local repStorage = game:GetService("ReplicatedStorage")
 local plrServ = game:GetService("Players")
@@ -33,17 +34,17 @@ local AgEnabled = false
 
  local ServerMessages = {
         Message = function(Msg: string)
-            game:GetService("TextChatService").TextChannels.RBXGeneral:DisplaySystemMessage(prefix..Msg)
+            game:GetService("TextChatService").TextChannels.RBXGeneral:DisplaySystemMessage(chatConsolePrefix..Msg)
         end;
 
         Warning = function(Msg: string)
             local formatted = string.format('<font color="#ffff00">%s</font>', Msg)
-            game:GetService("TextChatService").TextChannels.RBXGeneral:DisplaySystemMessage(prefix..formatted)
+            game:GetService("TextChatService").TextChannels.RBXGeneral:DisplaySystemMessage(chatConsolePrefix..formatted)
         end;
 
         Error = function(Msg: string)
             local formatted = string.format('<font color="#ff0000">%s</font>', Msg)
-            game:GetService("TextChatService").TextChannels.RBXGeneral:DisplaySystemMessage(prefix..formatted)
+            game:GetService("TextChatService").TextChannels.RBXGeneral:DisplaySystemMessage(chatConsolePrefix..formatted)
         end;
 
  }
