@@ -127,17 +127,16 @@ function dropTarget(target)
 end
 
 function GetValidBlobAndSeat()
-    local check = menuToys:FindFirstChild("CreatureBlobman")
-    if check then
-        print("found blob")
-        local SeatCheck: VehicleSeat = check:FindFirstChildOfClass("VehicleSeat")
+    local check
+    repeat check = ToyFolder:FindFirstChild("CreatureBlobman") task.wait()
+    until check
+
+        local SeatCheck: VehicleSeat = check:WaitForChild("VehicleSeat", 5)
         if SeatCheck then
             print('found seat')
             return check, SeatCheck
-        else
-            print('no seat ')
         end
-    end
+
 end
 
 
@@ -306,23 +305,22 @@ function Utils.ChatConsole(Info, MessageType)
 end
 
 function Utils.BlobEscape()
-
+    local lpHum = lp.Character:FindFirstChildOfClass("Humanoid")
     local ogPos = lp.Character.HumanoidRootPart.Position
 
     Utils.SpawnToy("CreatureBlobman", 5)
-    task.wait(0.05)
+    task.wait()
     local blob, seat = GetValidBlobAndSeat()
     struggleRem:FireServer()
     task.wait()
-    ragdollRem:FireServer(lp.Character.HumanoidRootPart, 0)
-    task.wait()
     lp.Character:MoveTo(seat.Position)
     task.wait()
-    seat:Sit(lp.Character:FindFirstChild("Humanoid"))
+    seat:Sit(lpHum)
     task.wait()
     Utils.DeleteToy(blob)
     task.wait()
-    lp.Character:MoveTo(ogPos)
+    ragdollRem:FireServer(lp.Character.HumanoidRootPart, 0)
+
 
 end
 
