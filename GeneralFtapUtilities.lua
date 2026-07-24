@@ -30,8 +30,6 @@ local threads = {}
 
 local AgEnabled = false
 
-
-
  local ServerMessages = {
         Message = function(Msg: string)
             game:GetService("TextChatService").TextChannels.RBXGeneral:DisplaySystemMessage(chatConsolePrefix..Msg)
@@ -96,7 +94,7 @@ function MouseRaycast()
 
 end
 
-local function ValidGrabbable(obj)
+function ValidGrabbable(obj)
 
     local allowedCollisionGroups = {
     "Items",
@@ -126,6 +124,16 @@ function dropTarget(target)
 		target,
 	}
 	grabEvents:WaitForChild("DestroyGrabLine", 1):FireServer(unpack(args))
+end
+
+function GetValidBlobAndSeat()
+    local check = menuToys:FindFirstChild("CreatureBlobman")
+    if check then
+        local SeatCheck: VehicleSeat = check:FindFirstChildOfClass("VehicleSeat")
+        if SeatCheck then
+            return check, SeatCheck
+        end
+    end
 end
 
 
@@ -236,9 +244,18 @@ function Utils.SpawnToy(ToyName: string, Distance: number, Orientation: Vector3?
     end)
 end
 
-function Utils.DeleteToy(ToyName: string)
-    local Deleting = ToyFolder:FindFirstChild(ToyName)
-    deleteToyRemote:FireServer(Deleting)
+function Utils.DeleteToy(ToyToDelete: string | Instance)
+ 
+    if typeof(ToyToDelete) == "string" then
+        local check = menuToys:FindFirstChild(ToyToDelete)
+        if check then
+            deleteToyRemote:FireServer(check)
+        end
+        
+    elseif typeof(ToyToDelete) == "Instance" then
+        deleteToyRemote:FireServer(ToyToDelete)
+    end
+
 end
 
 function Utils.WhenLpToySpawn(func: (spawnedToy: Model) -> ())
@@ -282,6 +299,19 @@ function Utils.ChatConsole(Info, MessageType)
     if ServerMessages[MessageType] then
         ServerMessages[MessageType](Info)
     end
+end
+
+function Utils.BlobEscape()
+
+    Utils.SpawnToy("CreatureBlobman", 5)
+    task.wait()
+    local blob, seat = GetValidBlobAndSeat()
+    struggleRem:FireServer()
+    task.wait()
+    seat:Sit(lp.Character:FindFirstChild("Humanoid"))
+    task.wait()
+    Utils.DeleteToy(blob)
+    
 end
 
 return Utils
