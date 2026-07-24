@@ -254,4 +254,26 @@ function Utils.WhenLpToySpawn(func: (spawnedToy: Model) -> ())
     return returnConn
 end
 
+function Utils.Aura(func: (ModelInRange: Model) -> ()) 
+    local params = OverlapParams.new()
+    params.FilterType = Enum.RaycastFilterType.Exclude
+    params.FilterDescendantsInstances = {lp.Character}
+
+    return task.spawn(function()
+        while task.wait(0.05) do
+             local seen = {}
+            local PartsInRange = workspace:GetPartBoundsInRadius(lp.Character.Head.Position, 19, params)
+            for i,v in ipairs(PartsInRange) do
+                local model = v.Parent
+                if ValidGrabbable(v) and model and not seen[model] then
+                    seen[model] = true
+                    func(model)
+                end
+            end
+
+        end
+
+    end)
+end
+
 return Utils
