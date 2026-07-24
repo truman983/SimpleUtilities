@@ -80,6 +80,21 @@ function GetClosestPartOfModel(Model: Model)
 
 end
 
+function MouseRaycast()
+    local unitRay = workspace.CurrentCamera:ScreenPointToRay(LpMouse.X, LpMouse.Y)
+
+    local params = RaycastParams.new()
+    params.FilterType = Enum.RaycastFilterType.Exclude
+    params.FilterDescendantsInstances = {lp.Character}
+
+    local result = workspace:Raycast(unitRay.Origin, unitRay.Direction * 1000, params)
+
+    if result then
+        return result.Instance
+    end
+
+end
+
 local function ValidGrabbable(obj)
 
     local allowedCollisionGroups = {
@@ -131,7 +146,7 @@ end
 
 function Utils.OwnMouseTarget()
 
-    local targ = LpMouse.Target
+    local targ = MouseRaycast()
 	if targ then
 	    if ValidGrabbable(targ) then
 	        netOwnTarget(targ)
@@ -243,4 +258,3 @@ function Utils.OnLPToySpawn(func: (spawnedToy: Model) -> ())
 end
 
 return Utils
-
