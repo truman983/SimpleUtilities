@@ -138,6 +138,17 @@ function GetValidBlobAndSeat()
 
 end
 
+function RemoveVelocities(Model: Model)
+
+    for i,v in pairs(Model:GetDescendants()) do
+        if v:IsA("BasePart") then
+            v.AssemblyAngularVelocity = Vector3.zero
+            v.AssemblyLinearVelocity = Vector3.zero
+        end
+    end
+
+end
+
 
 
 function Utils.OwnModel(Model: Model)
@@ -322,6 +333,7 @@ function Utils.BlobEscape()
     task.wait()
     Utils.DeleteToy(blob)
     task.wait()
+    RemoveVelocities(lp.Character)
     ragdollRem:FireServer(lp.Character.HumanoidRootPart, 0)
     task.wait()
     lp.Character:MoveTo(ogPos)
