@@ -197,19 +197,20 @@ function Utils.AntiGrab(Enabled: boolean)
 
 end
 
-function Utils.SpawnToy(ToyName: string, Position: Vector3, Orientation: Vector3?)
+function Utils.SpawnToy(ToyName: string, Distance: number, Orientation: Vector3?)
+    local root = lp.Character.HumanoidRootPart
+    local lv = root.CFrame.LookVector
+    local multiplier = Distance or 5
 
     local correction = CFrame.Angles(math.pi/2, 0, 0)
-    local origin = CFrame.new(Position)
+    local origin = CFrame.new((root.Position + (lv * multiplier)) - Vector3.new(0,20))
 
     local location = origin * correction
 
     task.spawn(function()
         if Orientation then
-				print('you had orientation')
             spawnToyEvent:InvokeServer(ToyName, location, Orientation)
         else
-				print('you had no orientation')
             spawnToyEvent:InvokeServer(ToyName, location, Vector3.zero)
         end
         
