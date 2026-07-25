@@ -280,6 +280,21 @@ function Utils.WhenLpToySpawn(func: (spawnedToy: Model) -> ())
     return returnConn
 end
 
+function Utils.WhenLpToyRemove(func: (removedToy: Model) -> ())
+     local returnConn
+    
+    returnConn = ToyFolder.ChildRemoved:Connect(function(child: Instance)
+        if child:IsA("Model") then
+            func(child)
+        end
+    end)
+
+    Connections["LPRemoveObject"] = returnConn
+
+    return returnConn
+
+end
+
 function Utils.Aura(func: (ModelInRange: Model) -> ()) 
 
     local params = OverlapParams.new()
