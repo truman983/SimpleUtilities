@@ -216,7 +216,7 @@ ReturnConn = game.Workspace.DescendantAdded:Connect(function(desc: Instance)
                 local weld: WeldConstraint = gp:WaitForChild("WeldConstraint")
                 if weld then
                     local PartGrabbing = weld.Part1
-                    if ValidGrabbable(PartGrabbing) then
+                    if PartGrabbing.Anchored == false then
                         func(PartGrabbing)
                     end
                 end
