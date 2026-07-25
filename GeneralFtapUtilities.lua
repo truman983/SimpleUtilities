@@ -216,9 +216,12 @@ ReturnConn = game.Workspace.DescendantAdded:Connect(function(desc: Instance)
                 local weld: WeldConstraint = gp:WaitForChild("WeldConstraint")
                 if weld then
                     local PartGrabbing = weld.Part1
-                    if PartGrabbing.Anchored == false then
+                    if PartGrabbing then
+                        if PartGrabbing.Anchored == false then
                         func(PartGrabbing)
+                        end
                     end
+                
                 end
             end
         end
@@ -303,7 +306,7 @@ function Utils.Aura(func: (ModelInRange: Model) -> ())
 
     return task.spawn(function()
         while task.wait(0.05) do
-            if not lp.Character or not lp.Character.Head then continue end 
+            if not lp.Character or not lp.Character.Head then print("Continuing") continue end 
              local seen = {}
             local PartsInRange = workspace:GetPartBoundsInRadius(lp.Character.Head.Position, 19, params)
             for i,v in ipairs(PartsInRange) do
