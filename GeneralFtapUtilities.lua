@@ -149,6 +149,11 @@ function RemoveVelocities(Model: Model)
 
 end
 
+function Utils.ChatConsole(Info, MessageType)
+    if ServerMessages[MessageType] then
+        ServerMessages[MessageType](Info)
+    end
+end
 
 
 function Utils.OwnModel(Model: Model)
@@ -306,7 +311,7 @@ function Utils.Aura(func: (ModelInRange: Model) -> ())
 
     return task.spawn(function()
         while task.wait(0.05) do
-            if not lp.Character or not lp.Character.Head then print("Continuing") continue end 
+            if not lp.Character or not lp.Character.Head then Utils.ChatConsole("Continuing", "Message") continue end 
              local seen = {}
             local PartsInRange = workspace:GetPartBoundsInRadius(lp.Character.Head.Position, 19, params)
             for i,v in ipairs(PartsInRange) do
@@ -320,12 +325,6 @@ function Utils.Aura(func: (ModelInRange: Model) -> ())
         end
 
     end)
-end
-
-function Utils.ChatConsole(Info, MessageType)
-    if ServerMessages[MessageType] then
-        ServerMessages[MessageType](Info)
-    end
 end
 
 function Utils.DoBlobSpawn()
