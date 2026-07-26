@@ -311,7 +311,7 @@ function Utils.Aura(func: (ModelInRange: Model) -> ())
 
     return task.spawn(function()
         while task.wait(0.05) do
-            if not lp.Character or not lp.Character.Head then Utils.ChatConsole("Continuing", "Message") continue end 
+            if not lp.Character or not lp.Character.Head then continue end 
              local seen = {}
             local PartsInRange = workspace:GetPartBoundsInRadius(lp.Character.Head.Position, 19, params)
             for i,v in ipairs(PartsInRange) do
