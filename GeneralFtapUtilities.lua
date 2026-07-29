@@ -96,6 +96,8 @@ end
 
 function ValidGrabbable(obj)
 
+    if not obj then return end 
+
     local allowedCollisionGroups = {
     "Items",
     "Default",
