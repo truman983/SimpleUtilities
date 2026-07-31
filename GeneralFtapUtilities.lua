@@ -1,3 +1,6 @@
+--local Utils = loadstring(game:HttpGet("https://raw.githubusercontent.com/truman983/SimpleUtilities/refs/heads/main/GeneralFtapUtilities.lua"))()
+-- loadstring for it
+
 local Utils = {}
 local chatConsolePrefix = '<font color="#11edb2">[Server]: </font>'
 
@@ -104,6 +107,10 @@ function ValidGrabbable(obj)
 	"Players",
     "PlotItems"
 }
+
+if obj.Name == "PlayerCharacterLocationDetector" then
+    return true
+end
 
     if table.find(allowedCollisionGroups, obj.CollisionGroup) and obj.Anchored == false and PartInRange(obj, 19) then
         return true
